@@ -1,0 +1,11 @@
+# Node backend
+payStreet-backend/node_modules/
+payStreet-backend/.env
+payStreet-backend/logs/
+
+
+# General
+*.log
+.vscode/
+.DS_Store
+
