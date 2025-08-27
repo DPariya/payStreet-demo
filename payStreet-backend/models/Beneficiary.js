@@ -8,7 +8,7 @@ const beneficiarySchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    accountNumber: {
+    bankAccountNumber: {
       type: String,
       required: true,
       unique: true,
