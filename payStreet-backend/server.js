@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./config/db.js";
 import { authRouter } from "./routes/index.js";
+import { errorHandler } from "./middleware/errorHandler.js";
 dotenv.config();
 
 const app = express();
@@ -19,7 +20,7 @@ app.get("/api/health", (req, res) => {
 
 //app routes
 app.use("/api/auth", authRouter);
-
+app.use(errorHandler);
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
 });
