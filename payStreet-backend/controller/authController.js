@@ -1,8 +1,8 @@
 import User from "../models/User.js";
-import jwt from "jsonwebtoken";
 import CustomError from "../utils/customError.js";
 import { sendAuthResponse } from "../utils/sendAuthResponse.js"; //Register
 
+//register
 export const register = async (req, res, next) => {
   try {
     const { firstName, lastName, email, password } = req.body;
@@ -20,5 +20,28 @@ export const register = async (req, res, next) => {
     return sendAuthResponse(res, user);
   } catch (err) {
     next(err); // Forward to errorHandler
+  }
+};
+
+//Login
+export const login = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      throw new CustomError(
+        "User not found, register instead",
+        404,
+        "USER_NOT_FOUND"
+      );
+    }
+    const isMatch = await user.comparePassword(password);
+    if (!isMatch) {
+      throw new CustomError("Invalid password", 401);
+    }
+    return sendAuthResponse(res, user);
+  } catch (error) {
+    next(error);
   }
 };
