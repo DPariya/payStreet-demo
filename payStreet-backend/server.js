@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./config/db.js";
-import { authRouter } from "./routes/index.js";
+import { authRouter, beneficiaryRouter } from "./routes/index.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 dotenv.config();
 
@@ -19,7 +19,10 @@ app.get("/api/health", (req, res) => {
 });
 
 //app routes
+//auth
 app.use("/api/auth", authRouter);
+//beneficiary
+app.use("/api/beneficiary", beneficiaryRouter);
 app.use(errorHandler);
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
